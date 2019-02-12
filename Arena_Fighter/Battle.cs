@@ -9,10 +9,9 @@ namespace Arena_Fighter
 
         public Character Player { get; private set; }
         public Character Opponenten { get; private set; }
-        public bool endedBattle => (Player.IsDead || Opponenten.IsDead);
 
-        public List<Round> BattleRounds { get; set; }
-          = new List<Round>();
+
+        public List<Round> BattleRounds { get; set; } = new List<Round>();
 
         public Battle(Character player, Character opponent)
         {
@@ -22,5 +21,17 @@ namespace Arena_Fighter
             this.Opponenten = opponent;
             this.Opponenten.Battles.Add(this);
 
-        }  
-}   }
+        }
+        public bool IsBattleEnded()
+        {
+            if (Player.IsDead || Opponenten.IsDead)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

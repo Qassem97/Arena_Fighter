@@ -11,6 +11,7 @@ namespace Arena_Fighter
         public int Strength { get; private set; }
         public int Damage { get; private set; }
         public int Health { get; set; }
+        //public bool IsBattleEnded;
         public bool IsDead
         {
             get
@@ -45,7 +46,7 @@ namespace Arena_Fighter
             {
                 // Reword with 2 for each battle the player join
                 result += 2;
-                if (battle.endedBattle && battle.Opponenten.Health <= 0)
+                if (battle.Player.IsDead && battle.Opponenten.IsDead)
                 {
                     // Reword with 3 for each battle the player win
                     result += 3;
@@ -56,10 +57,10 @@ namespace Arena_Fighter
 
         public void PrintCharacterInfo()
         {
-            Console.WriteLine($"Name: {this.Name}");
-            Console.WriteLine($"Strength: {this.Strength}");
-            Console.WriteLine($"Damage: {this.Damage}");
-            Console.WriteLine($"Health: {(this.Health > 0 ? this.Health.ToString() : "Dead")}\n");
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Strength: {Strength}");
+            Console.WriteLine($"Damage: {Damage}");
+            Console.WriteLine($"Health: {(Health > 0 ? Health.ToString() : "Dead")}\n");
         }
 
         public void PrintCharacterScore()
@@ -74,7 +75,7 @@ namespace Arena_Fighter
             foreach (var battle in Battles)
             {
                 Console.WriteLine($"{this.Name} " +
-                  $"{(battle.Opponenten.IsDead ? "fought and killed" : "was killed by")} " +
+                  $"{(battle.Opponenten.IsDead ? " killed" : "was killed by")} " +
                   $"{battle.Opponenten.Name}");
             }
         }

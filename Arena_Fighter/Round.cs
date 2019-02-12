@@ -8,41 +8,48 @@ namespace Arena_Fighter
     {
         public Battle Battle { get; private set; }
 
-        private Random randomly = new Random();
+        public static Random randomly = new Random();
+        
         public Round(Battle battle)
         {
             Battle = battle;
+
         }
 
-        public void GoRound()
+        public void loopPlay()
         {
-            int player = randomly.Next(1, 7);
-            int opponenten = randomly.Next(1, 7);
-            int playerPlusLuck = player + Battle.Player.Strength;
-            int opponentenPlusLuck = opponenten + Battle.Opponenten.Strength;
 
-            dicesGo(player, opponenten);
+            while (!Battle.Player.IsDead)
 
-            // Player attacks opponent
-            if (playerPlusLuck > opponentenPlusLuck)
             {
-                Battle.Opponenten.Health -= Battle.Player.Damage;
-                attackingOccurrence(playerPlusLuck, opponentenPlusLuck);
-            }
-            // Opponent attacks player
-            else if (playerPlusLuck < opponentenPlusLuck)
-            {
-                Battle.Player.Health -= Battle.Opponenten.Damage;
-                attackingOccurrence(playerPlusLuck, opponentenPlusLuck);
-            }
-            // strenght equals betweeen the fighter
-            else
-            {
-                Console.WriteLine("Both of you have the same power, try again and hit harder.");
-            }
+                int player = randomly.Next(1, 9);
+                int opponenten = randomly.Next(1, 8);
+                int playerPlusLuck = player + Battle.Player.Strength;
+                int opponentenPlusLuck = opponenten + Battle.Opponenten.Strength;
 
-            // Print Remaining Health
-            PrintRemainingHealth();
+                dicesGo(player, opponenten);
+
+                // Player attacks opponent
+                if (playerPlusLuck > opponentenPlusLuck)
+                {
+                    Battle.Opponenten.Health -= Battle.Player.Damage;
+                    attackingOccurrence(playerPlusLuck, opponentenPlusLuck);
+                }
+                // Opponent attacks player
+                else if (playerPlusLuck < opponentenPlusLuck)
+                {
+                    Battle.Player.Health -= Battle.Opponenten.Damage;
+                    attackingOccurrence(playerPlusLuck, opponentenPlusLuck);
+                }
+                // strenght equals betweeen the fighter
+                else
+                {
+                    Console.WriteLine("Both of you have the same power, try again and hit harder.");
+                }
+
+                // Print Remaining Health
+                PrintRemainingHealth();
+            }
         }
 
         private void dicesGo(int playersDice, int opponentensDice)
@@ -62,25 +69,25 @@ namespace Arena_Fighter
 
         private void attackingOccurrence(int playerStrengthPlusDice, int opponentStrenghtPlusDice)
         {
-            Character attacker;
-            Character defender;
-            // Player is the attacker
+            Character fighting;
+            Character daying;
+            // Player is the fighting
             if (playerStrengthPlusDice > opponentStrenghtPlusDice)
             {
-                attacker = Battle.Player;
-                defender = Battle.Opponenten;
+                fighting = Battle.Player;
+                daying = Battle.Opponenten;
                 Console.ForegroundColor = ConsoleColor.Green;
             }
-            // Opponent is the attacker
+            // Opponent is the fighting
             else
             {
-                attacker = Battle.Opponenten;
-                defender = Battle.Player;
+                fighting = Battle.Opponenten;
+                daying = Battle.Player;
                 Console.ForegroundColor = ConsoleColor.Red;
             }
-            Console.Write($"{attacker.Name} attacks {defender.Name}! " +
-              $"{defender.Name} takes {attacker.Damage} damage" +
-              $"{(Battle.endedBattle ? ", and falls to the ground dead." : ".")} \n");
+            Console.Write($"{fighting.Name} attacks {daying.Name}! " +
+              $"{daying.Name} takes {fighting.Damage} damage" +
+              $"{(Battle.IsBattleEnded() ? ", and falls to the ground dead." : ".")} \n");
             Console.ResetColor();
         }
     }
