@@ -11,7 +11,7 @@ namespace Arena_Fighter
         public Character Opponenten { get; private set; }
 
 
-        public List<Round> BattleRounds { get; set; } = new List<Round>();
+        public List<Round> BattleRounds { get; set; } = new List<Round>();  // after = :create auto new instance if needed
 
         public Battle(Character player, Character opponent)
         {

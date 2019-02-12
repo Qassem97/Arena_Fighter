@@ -11,7 +11,7 @@ namespace Arena_Fighter
             string playerName = Console.ReadLine(); Console.Clear();
 
             var player = new Character(playerName);// Creating the player           
-            while (!player.IsDead) // Game Loop
+            while (!player.IsDead) //  Loop
             {
                 string FightOrEscape;
 
@@ -33,33 +33,32 @@ namespace Arena_Fighter
                     var battle = new Battle(player, opponent);  // Battle creating
 
                     // play rounds untill the battleEnd(one of the player Isdead)
-                    if (battle.IsBattleEnded())
-                    {
-                        Console.ReadKey(true);
-
-                        if (battle.Player.Health > battle.Opponenten.Health)
-                            Console.WriteLine($"\n{battle.Player.Name} is the winner");// one line "no needs for brackets
-                        else
-                            Console.WriteLine($"\n{ battle.Opponenten.Name} is the winner");
-                        Console.ReadKey(true);
-                    }
-                    else 
-                    {
-                        // Create new Round
-                        var round = new Round(battle);
+                    while (!battle.IsBattleEnded())
+                    {    
+                        var round = new Round(battle); // Create new Round
+                        round.GoRound();
                         Console.ReadKey(true);
                         Console.WriteLine("-------------------------");
                         // Start the round and print the result
-                        //round.GoRound();
+
                         // Save this round in battle history
                         battle.BattleRounds.Add(round);
                         // When battle end Print the winner
-                    }  
+                    }
+                    Console.ReadKey(true);
+
+                    if (battle.Player.Health > battle.Opponenten.Health)
+                        Console.WriteLine($"\n{battle.Player.Name} is the winner");// one line "no needs for brackets
+                    else
+                        Console.WriteLine($"\n{ battle.Opponenten.Name} is the winner");
+                    Console.ReadKey(true);
+
                 }
 
                 else if (FightOrEscape == "R")
                 {
-                    Console.WriteLine("You have withdrawn from the battle. You pussy!");
+                    Console.WriteLine("You have withdrawn from the battle. Good bye!" +
+                        " \n Press any key to show your final score");
                     Console.ReadKey(true);
                     break;
                 }
@@ -71,9 +70,9 @@ namespace Arena_Fighter
             player.PrintCharacterScore();
 
             Console.ReadKey();
-        }
+        }//end of main
 
-    }
+    }//end of class
 
 }
 

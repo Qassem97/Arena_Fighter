@@ -6,12 +6,10 @@ namespace Arena_Fighter
 {
     class Character
     {
-
         public string Name { get; private set; }
         public int Strength { get; private set; }
         public int Damage { get; private set; }
         public int Health { get; set; }
-        //public bool IsBattleEnded;
         public bool IsDead
         {
             get
@@ -45,7 +43,7 @@ namespace Arena_Fighter
             foreach (var battle in Battles)
             {
                 // Reword with 2 for each battle the player join
-                result += 2;
+                result += 1;
                 if (battle.Player.IsDead && battle.Opponenten.IsDead)
                 {
                     // Reword with 3 for each battle the player win
@@ -65,7 +63,7 @@ namespace Arena_Fighter
 
         public void PrintCharacterScore()
         {
-            Console.WriteLine($"{this.Name} all result is {this.GetPlayerScore()}.");
+            Console.WriteLine($"{this.Name} score is {this.GetPlayerScore()}.");
         }
 
         public void PrintCharacterFinalStatistics()
@@ -75,7 +73,7 @@ namespace Arena_Fighter
             foreach (var battle in Battles)
             {
                 Console.WriteLine($"{this.Name} " +
-                  $"{(battle.Opponenten.IsDead ? " killed" : "was killed by")} " +
+                  $"{(battle.Opponenten.IsDead ? "  killed " : "was killed by")} " +
                   $"{battle.Opponenten.Name}");
             }
         }
@@ -84,10 +82,10 @@ namespace Arena_Fighter
         {
             var names = new string[]
             {
-        " Adam joesfsson ", "Samir Abdo", "Mats Johansson", "Marlon Brando", "Leo Messi", "Humphrey Bogart", "Johnny Depp", "Ali Pacino"
+                " Adam joesfsson ", "Samir Abdo", "Mats Johansson", "Marlon Brando", //decided names to show
+                "Leo Abdi", "Humphrey Bogart", "Johnny Depp", "Ali Pacino"
             };
             return new Character(names[new Random().Next(0, names.Length)]);
-
         }
     }
 }
