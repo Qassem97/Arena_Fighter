@@ -15,11 +15,10 @@ namespace Arena_Fighter
 
         public Battle(Character player, Character opponent)
         {
-            this.Player = player;
-            this.Player.Battles.Add(this);
-
-            this.Opponenten = opponent;
-            this.Opponenten.Battles.Add(this);
+            Player = player;
+            Player.Battles.Add(this);
+            Opponenten = opponent;
+            Opponenten.Battles.Add(this);
 
         }
         public bool IsBattleEnded()

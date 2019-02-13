@@ -19,10 +19,11 @@ namespace Arena_Fighter
                 // output name, strength, damage, health
                 player.PrintCharacterInfo();
                 Console.WriteLine("Choose one of these!");
-                Console.WriteLine("H - Picks up for an opponent");
+                Console.WriteLine("H - Picks up for an opponent and starts fighting");
                 Console.WriteLine("R - Withdraws from battle");
+              
                 FightOrEscape = Console.ReadKey(true).Key.ToString();
-
+                
                 if (FightOrEscape == "H")
                 {
                     var opponent = Character.GetRandomCharacter();  //  random opponent
@@ -32,7 +33,7 @@ namespace Arena_Fighter
                     opponent.PrintCharacterInfo();
                     var battle = new Battle(player, opponent);  // Battle creating
 
-                    // play rounds untill the battleEnd(one of the player Isdead)
+                    // play rounds untill the battle ends(one of the player Isdead)
                     while (!battle.IsBattleEnded())
                     {    
                         var round = new Round(battle); // Create new Round
@@ -43,10 +44,10 @@ namespace Arena_Fighter
 
                         // Save this round in battle history
                         battle.BattleRounds.Add(round);
-                        // When battle end Print the winner
+                        
                     }
                     Console.ReadKey(true);
-
+                    // When battle end Print the winner
                     if (battle.Player.Health > battle.Opponenten.Health)
                         Console.WriteLine($"\n{battle.Player.Name} is the winner");// one line "no needs for brackets
                     else

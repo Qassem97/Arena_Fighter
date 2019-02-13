@@ -68,7 +68,7 @@ namespace Arena_Fighter
         //to do 
         private void attackingOccurrence(int playerStrengthPlusDice, int opponentStrenghtPlusDice)
         {
-            // Player is the fighting
+            // Player is the fighter
             if (playerStrengthPlusDice > opponentStrenghtPlusDice)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -76,7 +76,7 @@ namespace Arena_Fighter
                "! " + "\n" + Battle.Opponenten.Name + " takes " + Battle.Player.Name +"s" + " damage ");
                 Console.ResetColor();
             }
-            // Opponent is the fighting
+            // Opponent is the fighter
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
